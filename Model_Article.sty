@@ -1,0 +1,620 @@
+% KOMA script options for the scrbook class. 
+% DIV defines the margin size. With calc, it is computed automatically depending on the text size.
+% With optiontohead, the short titles are displayed in the headers. 
+\KOMAoptions{
+	paper=a4,
+	fontsize=10pt,
+	twoside=no,
+	twocolumn=yes,
+	DIV=26,
+	BCOR=0mm,
+	headings=optiontohead,
+	headsepline=true,
+	numbers=noenddot
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% To allow if, then else conditions
+\RequirePackage{ifthen}
+
+% Font settings
+% To use a vectorial font with accents.
+\usepackage[cyr]{aeguill}
+% To allow babel to use the macro xspace when necessary.
+\usepackage{xspace}
+% Babel and associated languages
+\usepackage[french,english]{babel}
+% To use directly accents in the tex file (load before fontenc).
+\usepackage[utf8]{inputenc}
+% To display accents in the pdf file.
+\usepackage[T1]{fontenc}
+% Serif body font
+\usepackage{charter}
+% Math font
+%\usepackage[charter, expert]{mathdesign}
+% Monospaced font
+\usepackage{sourcecodepro}
+% Sans-serif font
+%\usepackage[lf]{FiraSans}
+% To provide some refinements to the typography.
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)      
+\usepackage[
+	activate={true,nocompatibility},
+	final,
+	tracking=true,
+	kerning=true,
+	spacing=true,
+	factor=1100,
+	stretch=10,
+	shrink=10,
+	letterspace=50,
+	babel=true
+]{microtype}
+% To allow hyphenation with dash linked words.
+\usepackage[shortcuts]{extdash}
+
+% To enhance LaTeX's mathematical typesetting.
+\usepackage{amsmath}
+
+% To define new colors.
+\usepackage{color}
+
+% To add affiliations to the authors.
+\usepackage{authblk}
+% To limit the float positioning with \floatbarrier. 
+\usepackage{placeins}
+% To change headers and footers
+\usepackage{scrlayer-scrpage}
+% To modify the numbers that appear in the titles or captions, 
+% e.g., to eliminate the chapter number in section and figure numbering when the chapter is unnumbered.
+\usepackage{chngcntr}
+% To change the section format
+\usepackage[calcwidth]{titlesec}
+% To add an appendix environment and add appendix in the toc.
+\usepackage[]{appendix}
+% To define the bibliography.
+\usepackage[square,authoryear]{natbib}
+
+% To define the figure and table captions.
+\usepackage[
+	format=plain,
+	justification=justified,
+	font=small,
+	labelfont={bf},
+	labelsep=quad
+]{caption}
+% To include figures.
+\usepackage{graphicx}
+% To solve issue with the figure placement in two columns
+\usepackage{dblfloatfix}
+% To insert tables.
+\usepackage{array}
+% To insert table of a given width.
+\usepackage{tabularx}
+% To use bold table lines for better tables.
+\usepackage{booktabs}
+% To merge several rows in a table.
+\usepackage{multirow,bigdelim}
+% To align numbers in a column on the decimal point.
+\usepackage{dcolumn}
+% To add line numbers.
+%\usepackage[switch]{lineno}
+
+% To make tables with attached notes
+\usepackage{threeparttable}
+% table thick lines
+\usepackage{boldline,multirow}
+\newlength{\Oldarrayrulewidth}
+\newcommand{\Cline}[2]{%
+  \noalign{\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}}%
+  \noalign{\global\setlength{\arrayrulewidth}{#1}}\cline{#2}%
+  \noalign{\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}}}
+% end of table thick line definitions
+
+% To have nice paragraph and compact item list
+\usepackage{paralist}
+
+
+% To add and highlight links in the text (load at the end).
+% With natbib.
+%\hypersetup{
+\usepackage[
+	pdfpagelayout=TwoPageRight,
+	plainpages=false,
+	backref=page
+]{hyperref}
+
+% For nice comment commands
+% NOTE: load after hyperref to avoid conflicts
+\usepackage{pdfcomment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New commands and style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\columnsep}{1.5em}
+
+% Command to change the size between table lines. Need the booktabs package.
+\renewcommand{\arraystretch}{1.2}
+
+% Change the author and affiliation styles. Need the authblk package.
+\renewcommand\Authfont{\large}
+\renewcommand\Affilfont{\footnotesize \itshape}
+
+\def\artauthor{}
+\def\arttitle{}
+\def\artjournal{}
+\def\artvolume{}
+\def\artnumber{}
+\def\artpages{}
+\def\artyear{}
+\def\artdoi{}
+\def\abstract{}
+\def\mykeywords{}
+\def\highlights{}
+
+\newcommand{\Authors}[1]{\def\artauthor{\textbf{#1}}}
+\newcommand{\Title}[1]{\def\arttitle{#1}}
+\newcommand{\Journal}[1]{\def\artjournal{\textit{#1}}}
+\newcommand{\Volume}[1]{\def\artvolume{#1}}
+\newcommand{\Number}[1]{\def\artnumber{#1}}
+\newcommand{\Pages}[2]{\def\artpages{#1--#2}}
+\newcommand{\Year}[1]{\def\artyear{#1}}
+\newcommand{\DOI}[1]{\def\artdoi{\href{http://dx.doi.org/#1}{#1}}}
+\newcommand{\Abstract}[1]{\def\abstract{#1}}
+\def\sep{%
+	\ifthenelse{\equal{\abstract}{\empty}}{\quad}{\\}
+}
+\newcommand{\MyKeywords}[1]{\def\mykeywords{
+	\ifthenelse{\equal{\abstract}{\empty}}{%
+		#1%
+	}{%
+		\begin{tabular}[t]{@{}l@{}}%
+			\textbf{Keywords} \sep%
+			#1%
+		\end{tabular}%
+	}%
+}}
+\newcommand{\Highlights}[1]{\def\highlights{%
+	\ifx\foo#1\foo%
+	\else%
+			\begin{minipage}[t]{\linewidth}%
+				\begin{compactitem}[\ensuremath{\triangleright}]
+					#1%
+				\end{compactitem}%
+			\end{minipage}
+	\fi%
+}}
+
+\def\maketitle{\par
+	\begingroup
+		\renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+		\def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    	\long\def\@makefntext##1{\parindent 1em\noindent
+        	\hb@xt@1.8em{%
+            	\hss\@textsuperscript{\normalfont\@thefnmark}}##1}% 
+		\def\arraystretch{1.3}%
+       	\ifx\abstract\empty
+       		% If there is no abstract and no keyword
+       		\ifx\mykeywords\empty 
+				% and no highlights
+				\ifx\highlights\empty
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\par
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\par
+						\vskip 2em%
+					\fi
+				% no astract, no keyword, but highlights
+				\else
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\par
+							\hrule
+							\vskip 0.3em%
+							\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+								\textbf{Highlights\quad} &
+								{\highlights} \\%
+							\end{tabularx}%
+							\vskip 0.5em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\par
+						\hrule
+						\vskip 0.3em%
+						\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+							\textbf{Highlights\quad} &
+							{\highlights} \\%
+							\textbf{Keywrds\quad} & 
+							{\keywords} \\%
+						\end{tabularx}%
+						\vskip 0.5em%
+						\hrule
+						\vskip 2em%
+					\fi
+				\fi
+		    % If there is no abstract and keywords
+          	\else
+				% and no highlights
+				\ifx\highlights\empty
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+								&
+								\textbf{Keywords\quad} \sep
+								{\mykeywords} \\%
+							\end{tabularx}%
+							\vskip 0.5em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+							&
+							\textbf{Keywords\quad} \sep 
+							{\mykeywords} \\%
+						\end{tabularx}%
+						\vskip 0.5em%
+						\hrule
+						\vskip 2em%
+					\fi
+				% no astract, but keyword, and highlights
+				\else
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\hrule
+							\vskip 0.3em%
+							\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+								\textbf{Highlights\quad} &
+								{\highlights} \\%
+								\textbf{Keywords\quad} & 
+								{\mykeywords} \\%
+							\end{tabularx}%
+							\par
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\hrule
+						\vskip 0.3em%
+						\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+							\textbf{Highlights\quad} &
+							{\highlights} \\%
+							\textbf{Keywords\quad} & 
+							{\mykeywords} \\%
+						\end{tabularx}%
+						\par
+						\hrule
+						\vskip 2em%
+					\fi
+				\fi
+          	\fi
+		\else
+			% If there is an abstract and no keyword
+	        \ifx\mykeywords\empty
+				% and no highlights
+				\ifx\highlights\empty
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\hrule
+							\vskip 0.3em%
+							\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+								\textbf{Abstract\quad} & 
+								{\abstract} \\%
+							\end{tabularx}%
+							\par
+							\vskip 0.3em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\hrule
+						\vskip 0.3em%
+						\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+							\textbf{Abstract\quad} & 
+							{\abstract} \\%
+						\end{tabularx}%
+						\par
+						\vskip 0.3em%
+						\hrule
+						\vskip 2em%
+					\fi
+				% abstract, no keyword, and highlights
+				\else
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\hrule
+							\vskip 0.3em%
+							\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+								\textbf{Abstract\quad} & 
+								{\abstract} \\%
+								\textbf{Highlights\quad} &
+								{\highlights} \\%
+							\end{tabularx}%
+							\par
+							\vskip 0.3em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\hrule
+						\vskip 0.3em%
+						\begin{tabularx}{\linewidth}{@{}l@{}X@{}}%
+							\textbf{Abstract\quad} & 
+							{\abstract} \\%
+							\textbf{Highlights\quad} &
+							{\highlights} \\%
+						\end{tabularx}%
+						\par
+						\vskip 0.3em%
+						\hrule
+						\vskip 2em%
+					\fi
+				\fi
+		    % If there is an abstract and keywords
+	        \else
+				% and no highlights
+				\ifx\highlights\empty
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\hrule
+							\vskip 0.3em%
+							\tabcolsep=0.75em
+							\begin{tabularx}{\linewidth}{@{}Xl@{}}%
+								{\textbf{Abstract}\quad \abstract} & 
+								{\mykeywords} \\%
+							\end{tabularx}%
+							\par
+							\vskip 0.3em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\hrule
+						\vskip 0.3em%
+						\tabcolsep=0.75em
+						\begin{tabularx}{\linewidth}{@{}Xl@{}}%
+							{\textbf{Abstract}\quad \abstract} & 
+							{\mykeywords} \\%
+						\end{tabularx}%
+						\par
+						\vskip 0.3em%
+						\hrule
+						\vskip 2em%
+					\fi
+				% abstract, keyword, and highlights
+				\else
+					\if@twocolumn
+						\twocolumn[
+							\newpage
+							\global\@topnum\z@   % Prevents figures from going at top of page.
+							\@maketitle
+							\textbf{Highlights}\par
+							\highlights\par
+							\vskip 0.5em%
+							\hrule
+							\vskip 0.3em%
+							\tabcolsep=0.75em
+							\begin{tabularx}{\linewidth}{@{}Xl@{}}%
+								{\textbf{Abstract}\quad \abstract} & 
+								{\mykeywords} \\%
+							\end{tabularx}%
+							\par
+							\vskip 0.3em%
+							\hrule
+							\vskip 2em%
+						]%
+					\else
+						\newpage
+						\global\@topnum\z@   % Prevents figures from going at top of page.
+						\@maketitle
+						\textbf{Highlights}\par
+						\highlights\par
+						\vskip 0.5em%
+						\hrule
+						\vskip 0.3em%
+						\tabcolsep=0.75em
+						\begin{tabularx}{\linewidth}{@{}Xl@{}}%
+							{\textbf{Abstract}\quad \abstract} & 
+							{\mykeywords} \\%
+						\end{tabularx}%
+							\par
+							\vskip 0.3em%
+							\hrule
+							\vskip 2em%
+					\fi
+				\fi
+       		\fi
+       	\fi
+    	\thispagestyle{plain}\@thanks
+	\endgroup
+	\setcounter{footnote}{0}%
+	\global\let\thanks\relax
+	\global\let\maketitle\relax
+	%\global\let\@maketitle\relax
+	\global\let\@thanks\@empty
+	\global\let\@author\@empty
+	\global\let\@date\@empty
+	\global\let\@title\@empty
+	\global\let\title\relax
+	\global\let\author\relax
+	\global\let\date\relax
+	\global\let\and\relax
+}
+
+\renewcommand{\@maketitle}{%
+%	\newpage
+%	\null
+\raisebox{-1.7em}{\includegraphics[width=2.5cm]{by-nc-nd.png}}
+\hspace{0.5em}
+\begin{minipage}[t]{0.35\textwidth}%
+\fontsize{8pt}{9pt}\selectfont This work is licensed under a \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{Creative Commons Attribution-NonCommercial-NoDerivatives 4.0\\ International License.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\textwidth}
+	\raggedleft \footnotesize%
+	\thispagestyle{plain}%
+	\ifthenelse{\equal{\artauthor}{\empty}}{}{\artauthor\hfill}\ifthenelse{\equal{\arttitle}{\empty}}{}{\arttitle} \par%
+	\ifthenelse{\equal{\artjournal}{\empty}}{}{\artjournal}\ifthenelse{\equal{\artvolume}{\empty}}{}{, \artvolume}\ifthenelse{\equal{\artnumber}{\empty}}{}{(\artnumber)}\ifthenelse{\equal{\artpages}{\empty}}{}{: \artpages}\ifthenelse{\equal{\artyear}{\empty}}{}{, \artyear} \par%
+\ifthenelse{\equal{\artdoi}{\empty}}{}{\artdoi} \par
+\end{minipage}
+	\vskip 1.5em%
+  	\begin{center}%
+  		{\let \footnote \thanks}%
+  		{\huge \sffamily \@title \par}%
+  		{\vskip 1.5em \@author \par}%
+  	\end{center}%
+}
+
+
+% With natbib.
+% Define a style for the backref. Need the hyperref package.
+\newcommand{\mapolicebackref}[1]{
+    %\hspace*{\fill} \mbox{\textit {\small #1}}
+    \mbox{\textit {#1}}
+}
+% Handle the backref in the bibliography. Need the hyperref package.
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+\ifcase #1 \mapolicebackref{(Not cited)}
+    \or \mapolicebackref{(Cited page #2)}
+    %\else \mapolicebackref{#1 citations pages #2}
+    \else \mapolicebackref{(Cited pages #2)}
+\fi
+}
+
+\newcommand{\superscript}[1]{\ensuremath{^\textrm{\scriptsize#1}}}
+\newcommand{\xst}[0]{\superscript{st}}
+\newcommand{\xnd}[0]{\superscript{nd}}
+\newcommand{\xrd}[0]{\superscript{rd}}
+\newcommand{\xth}[0]{\superscript{th}}
+
+% Abs symbol.
+\delimitershortfall-1sp
+\newcommand\abs[1]{\left|#1\right|}
+
+% Need the scrlayer-scrpage package.
+\pagestyle{scrheadings}
+
+\newcommand\Normalsize{\@setfontsize\Normalsize{11}{13}}
+
+% Modify the section titles. % Need the titlesec package.
+\titleformat{\section}[hang]
+	{\bfseries \sffamily \large \scshape} % Global style
+	{\ifnum\pdfstrcmp{\@currenvir}{appendices}=0
+		Appendix~\thesection
+	\else
+	  	\thesection
+	\fi} % Section label style
+	{0.6em} % Horizontal space between the label and the chapter title (if using hang)
+	{} % Section title style
+	
+% Modify the subsection titles. % Need the titlesec package.
+\titleformat{\subsection}[hang]
+	{\bfseries \sffamily \Normalsize} % Global style
+	{\thesubsection} % Section label style
+	{0.6em} % Horizontal space between the label and the chapter title (if using hang)
+	{} % Section title style
+	
+% Modify the subsubsection titles. % Need the titlesec package.
+\titleformat{\subsubsection}[hang]
+	{\bfseries \sffamily \itshape} % Global style
+	{\thesubsubsection} % Section label style
+	{0.6em} % Horizontal space between the label and the chapter title (if using hang)
+	{} % Section title style
+	
+% Modify the paragraph titles. % Need the titlesec package.
+\titleformat{\paragraph}[runin]
+	{\bfseries} % Global style
+	{\theparagraph} % Section label style
+	{0.6em} % Horizontal space between the label and the chapter title (if using hang)
+	{} % Section title style
+
+% Modify spacing left, before and after titles % Need titlesec
+\titlespacing{\section}{0pt}{1em}{0.0em}
+\titlespacing{\subsection}{0pt}{1em}{0.0em}
+\titlespacing{\subsubsection}{0pt}{1em}{0.0em}
+	
+% Text size for the bibliography. Need the natbib package.
+\def\bibfont{\footnotesize}
+\setlength{\bibsep}{0.15em plus 0.05em}
+			 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Miscellaneous
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Need the graphicx package.
+\graphicspath{ {}{Figures/} }
+
+% Need the natbib package.
+\bibliographystyle{abbrvnat}
+%\bibliographystyle{unsrtnat}
+
+% Need the hyperref package.
+\definecolor{colorlink}{RGB}{4,90,141}
+\hypersetup{
+	bookmarksnumbered = true,
+  	colorlinks   = true, %Colours links instead of ugly boxes
+  	urlcolor     = colorlink, %Colour for external hyperlinks
+  	linkcolor    = colorlink, %Colour of internal links
+  	citecolor    = colorlink %Colour of citations
+}
+
+% For Facile validation.
+\pdfobjcompresslevel 0
+
+\date{}
