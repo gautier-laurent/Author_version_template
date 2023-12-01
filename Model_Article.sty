@@ -160,6 +160,18 @@
 \def\mykeywords{}
 \def\highlights{}
 
+\def\lic{by}
+\newcommand{\licimage}[0]{\lic.png}
+\newcommand{\liclink}[0]{
+\href{http://creativecommons.org/licenses/\lic/4.0/}{Creative Commons\\Attribution%
+\ifthenelse{\equal{\lic}{by-nc}}{Non Commercial}{%
+\ifthenelse{\equal{\lic}{by-nc-nd}}{Non Commercial No Derivatives}{%
+\ifthenelse{\equal{\lic}{by-nc-sa}}{Non Commercial Share Alike}{%
+}}}
+4.0 International License}}
+
+\def\status{draft}
+
 \newcommand{\Authors}[1]{\def\artauthor{\textbf{#1}}}
 \newcommand{\Title}[1]{\def\arttitle{#1}}
 \newcommand{\Journal}[1]{\def\artjournal{\textit{#1}}}
@@ -499,18 +511,25 @@
 \renewcommand{\@maketitle}{%
 %	\newpage
 %	\null
-\raisebox{-1.7em}{\includegraphics[width=2.5cm]{by.png}}
+\raisebox{-1.7em}{\includegraphics[width=2.5cm]{\licimage}}
 \hspace{0.5em}
 \begin{minipage}[t]{0.35\textwidth}%
-\fontsize{8pt}{9pt}\selectfont This work is licensed under a \href{http://creativecommons.org/licenses/by/4.0/}{Creative Commons\\Attribution 4.0 International License.}
+\fontsize{8pt}{9pt}\selectfont This work is licensed under a \liclink.
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.3\textwidth}
+\begin{minipage}[t]{0.33\textwidth}
 	\raggedleft \footnotesize%
 	\thispagestyle{plain}%
+	This is an author version of a \status{} paper%
+	\ifthenelse{\not{\equal{\artjournal}{\empty}}\and\(\equal{\status}{draft}\or\equal{\status}{preprint}\)}{, to be submitted to \artjournal}{}. \par%
+	\ifthenelse{\equal{\status}{submitted}\and\not{\equal{\artjournal}{\empty}}}{submitted to \artjournal.\par}{}%
+	\ifthenelse{\equal{\status}{accepted}\and\not{\equal{\artjournal}{\empty}}}{%
 	\ifthenelse{\equal{\artauthor}{\empty}}{}{\artauthor\hfill}\ifthenelse{\equal{\arttitle}{\empty}}{}{\arttitle} \par%
 	\ifthenelse{\equal{\artjournal}{\empty}}{}{\artjournal}\ifthenelse{\equal{\artvolume}{\empty}}{}{, \artvolume}\ifthenelse{\equal{\artnumber}{\empty}}{}{(\artnumber)}\ifthenelse{\equal{\artpages}{\empty}}{}{: \artpages}\ifthenelse{\equal{\artyear}{\empty}}{}{, \artyear} \par%
-\ifthenelse{\equal{\artdoi}{\empty}}{}{\artdoi} \par
+\ifthenelse{\equal{\artdoi}{\empty}}{}{\artdoi}%
+}{%
+\ifthenelse{\equal{\artyear}{\empty}}{}{Date: \artyear} %
+\ifthenelse{\equal{\artdoi}{\empty}}{}{\artdoi}}\par
 \end{minipage}
 	\vskip 1.5em%
   	\begin{center}%

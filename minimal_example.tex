@@ -2,42 +2,47 @@
 
 \usepackage{Model_Article}
 
-\title{title}
-\author[1,2]{Minerva}
-\author[1]{Astérix}
-\author[2]{Sergio}
+\title{Minimal Example Template Paper}
+\author[1]{G. Laurent}
 \affil[1]{Univ. Orléans, CNRS, BRGM, ISTO, UMR 7327, F-45071, Orléans, France}
-\affil[2]{GeoRessources (UMR 7359, Universit\'e de Lorraine / CNRS / CREGU), Vandoeuvre-l\`es-Nancy, F-54518 France}
+%\affil[2]{GeoRessources (UMR 7359, Universit\'e de Lorraine / CNRS / CREGU), Vandoeuvre-l\`es-Nancy, F-54518 France}
 
 \Abstract{
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada vehicula ex, nec consectetur elit malesuada id. Suspendisse ut sagittis eros, ac suscipit velit. In hac habitasse platea dictumst. Curabitur ipsum enim, semper eget sem in, auctor mollis purus. Vivamus viverra aliquet elit, ac iaculis nisl imperdiet aliquet. Pellentesque id ullamcorper eros. Integer vitae enim et sapien fringilla eleifend eu venenatis mauris. Donec placerat euismod lorem, eget semper purus malesuada vitae. Integer fringilla maximus porttitor. Sed euismod ultricies odio in dapibus. Donec consectetur quam eget posuere auctor.
 }
 
 \MyKeywords{
-	Template \sep Lorem ipsum \sep Boromir
+	Template \sep Paper \sep Lorem ipsum 
 }
 
-\Journal{Journal of Nonsense}
+% licensing, redefine \lic to change licence, cf. Creative Commons
+% by, by-nc, by-nc-nd, or by-nc-sa
+\def\lic{by}
+
+% status, to indicate the status of the manuscript (draft, preprint, submitted, accepted)
+\def\status{accepted}
+% this can be change to indicate the target or publishing journal depending on the status
+\Journal{Some Journal}
 \Volume{96}
-%\Number{N}
+\Number{1}
 \Pages{145}{169}
-\Year{2016}
-\DOI{10.1016/j.nonsense.2016.07.008}
+\Year{2023}
+\DOI{10.1023/j.test.2023}
 
 \begin{document}
 
 % Not a command yet, but you can uncomment part of the following to add a cover page and/or a graphical abstract
-%\makeatletter
-%\twocolumn[\@maketitle]
-%\makeatother
-%
-%\section*{Graphical Abstract}
-%\begin{center}
-%  \includegraphics[width=13cm]{graphical_abstract}
-%\end{center}
-%
-%\tableofcontents
-%\newpage
+\makeatletter
+\twocolumn[\@maketitle]
+\makeatother
+
+\section*{Graphical Abstract}
+\begin{center}
+  \includegraphics[width=13cm]{graphical_abstract}
+\end{center}
+
+\tableofcontents
+\newpage
 
 \maketitle	
 \section*{Introduction}
@@ -60,7 +65,7 @@
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros purus, consectetur nec elit nec, consectetur ullamcorper nibh. Aenean feugiat ultrices sollicitudin. Suspendisse convallis mattis diam sed egestas. Maecenas volutpat lectus ante. Donec suscipit tortor at est molestie sollicitudin. Pellentesque condimentum gravida erat, pellentesque molestie ipsum dapibus ut. Nunc lacinia lacinia dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse luctus risus eu ligula venenatis, id lacinia diam porta (figure \ref{fig:Figure_1}).
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth]{Figure_1.jpg} 
+	\includegraphics[width=\linewidth]{fig_section} 
 	\caption{In sed rutrum felis. Cras convallis libero vel arcu euismod, ut ultricies dolor pellentesque. Nullam congue, mauris et volutpat imperdiet (modified from \citet{Tolkien1954}).}
 	\label{fig:Figure_1}
 \end{figure}
@@ -82,7 +87,7 @@
 	Nulla scelerisque, mauris nec fermentum placerat, tortor nunc tristique ipsum, sagittis imperdiet lacus sapien eu libero. Vivamus vel purus metus. Duis scelerisque aliquet risus a pretium. Nam sed semper elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec congue velit est, a blandit quam dictum vitae. Morbi erat metus, ultricies ac erat sit amet, luctus dictum ex. Nullam quis egestas eros. Duis at erat tellus. Etiam pharetra tempus erat, vitae tempor neque lobortis eget. Sed sed fermentum risus, ac auctor turpis. Fusce euismod rhoncus nibh non dictum. Vestibulum at laoreet risus. Vestibulum sit amet dictum sapien, a pellentesque tellus (figure \ref{fig:Figure_2}).
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth]{Figure_2.jpg} 
+	\includegraphics[width=\linewidth]{fig_section} 
 	\caption{Phasellus eleifend gravida tempus. Etiam suscipit odio a nisl lacinia, sed ultrices ligula posuere. Pellentesque congue erat quis sagittis dictum.}
 	\label{fig:Figure_2}
 \end{figure}
