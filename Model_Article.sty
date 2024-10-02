@@ -523,7 +523,8 @@
 \begin{minipage}[t]{0.33\textwidth}
 	\raggedleft \footnotesize%
 	\thispagestyle{plain}%
-	This is an author version of a \status{} paper%
+	This is an author version of %
+	\ifthenelse{\equal{\status}{accepted}}{an}{a} \status{} paper%
 	\ifthenelse{\not{\equal{\artjournal}{\empty}}\and\(\equal{\status}{draft}\or\equal{\status}{preprint}\)}{, to be submitted to \artjournal}{}. \par%
 	\ifthenelse{\equal{\status}{submitted}\and\not{\equal{\artjournal}{\empty}}}{submitted to \artjournal.\par}{}%
 	\ifthenelse{\equal{\status}{accepted}\and\not{\equal{\artjournal}{\empty}}}{%
