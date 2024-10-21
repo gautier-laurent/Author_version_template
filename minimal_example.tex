@@ -33,18 +33,15 @@
 
 % Not a command yet, but you can uncomment part of the following to add a cover page and/or a graphical abstract
 \makeatletter
-\twocolumn[\@maketitle]
-\makeatother
-
+\twocolumn[{\@maketitle
 \section*{Graphical Abstract}
-\begin{center}
-  \includegraphics[width=13cm]{graphical_abstract}
-\end{center}
+\centering\includegraphics[width=13cm]{graphical_abstract}}]
+\makeatother
 
 \tableofcontents
 
 % todos
-\listoftodos
+%\listoftodos
 
 \newpage
 % end of cover page
