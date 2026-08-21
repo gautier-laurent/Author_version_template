@@ -79,6 +79,7 @@
 \usepackage[calcwidth]{titlesec}
 % To add an appendix environment and add appendix in the toc.
 \usepackage[]{appendix}
+
 % To define the bibliography.
 \usepackage[square,authoryear]{natbib}
 
@@ -624,7 +625,11 @@
 \graphicspath{ {}{Figures/} }
 
 % Need the natbib package.
-\bibliographystyle{abbrvnat}
+\bibliographystyle{author_template}
+
+\newcommand{\doi}[1]{\textlangle{}doi:\href{https://dx.doi.org/#1}{#1}\textrangle}
+\newcommand{\hal}[1]{\textlangle\href{https://hal.science/#1}{#1}\textrangle}
+
 %\bibliographystyle{unsrtnat}
 
 % Need the hyperref package.
