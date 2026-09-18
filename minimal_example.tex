@@ -1,7 +1,56 @@
 \documentclass[]{scrartcl}
 
+%-------------------------------------------------------------------------------------------------
+% You have to use this package to load the template
 \usepackage{Model_Article}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for including lines of code
+
+\usepackage{listings}
+
+%defining colors
+\definecolor{string}{RGB}{121, 56, 25}
+\definecolor{comment}{RGB}{68, 107, 61}
+\definecolor{number}{rgb}{0.6,0.60,0.6}
+\definecolor{keyword}{RGB}{4,90,141}
+\definecolor{class}{RGB}{4, 123, 93}
+\definecolor{method}{RGB}{80, 80, 80}
+\definecolor{param}{RGB}{4,90,141}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{comment},
+    keywordstyle=\color{keyword},
+    numberstyle=\tiny\color{number},
+    stringstyle=\color{string},
+    basicstyle=\rmfamily\selectfont\normalsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,%,tab=\rightarrowfill                  
+    tabsize=2, % <-- change tab size here
+    emph= {MyClass}, % <-- list your classes here
+    emphstyle= \color{class},
+    emph= {[2]my_method}, % <-- list your methods here (don't remove the [2])
+    emphstyle={[2]\color{method}},
+    emph= {[3]my_var},  % <-- list your variables and attributes here (don't remove the [3])
+    emphstyle={[3]\color{param}}
+}
+
+\lstset{language=Python, style=mystyle} % <-- set language here
+
+
+% you can define new keywords and commands like that
+\newcommand{\myCommand}{\textbf{SpecialCommand}\xspace}
+
+%-------------------------------------------------------------------------------------------------
+% here starts actual informations about the content
 \title{Minimal Example Template Paper}
 \author[1]{G. Laurent}
 \affil[1]{Univ. Orléans, CNRS, BRGM, ISTO, UMR 7327, F-45071, Orléans, France}
@@ -17,7 +66,7 @@
 
 % licensing, redefine \lic to change licence, cf. Creative Commons
 % by, by-nc, by-nc-nd, or by-nc-sa
-\def\lic{by}
+\def\lic{by} % cc by is recommended as nc can be exploited by owners of rights to use commercially (publishers)
 
 % status, to indicate the status of the manuscript (draft, preprint, submitted, accepted)
 \def\status{accepted}
@@ -29,75 +78,136 @@
 \Year{2023}
 \DOI{10.1023/j.test.2023}
 
+%-------------------------------------------------------------------------------------------------
+% here starts the document, but this is the automated part
 \begin{document}
 
-% Not a command yet, but you can uncomment part of the following to add a cover page and/or a graphical abstract
+% cover page
 \makeatletter
-\twocolumn[{\@maketitle
-\section*{Graphical Abstract}
-\centering\includegraphics[width=13cm]{graphical_abstract}}]
+\twocolumn[
+\@maketitle
+\section*{Highlights}
+\begin{compactitem}
+\item Highlights are great to make your paper more visible.
+\item They should be short sentences.
+\item They should give important points.
+\end{compactitem}
+\vspace{1em}
+]
 \makeatother
 
-\tableofcontents
+\begin{minipage}{\textwidth}
+\section*{Graphical Abstract}
+\begin{center}
+\includegraphics[width=16cm]{graphical_abstract}
+\end{center}
 
-% todos
-%\listoftodos
+\begin{multicols}{2}
+\tableofcontents
+%\columnbreak
+\end{multicols}
+\end{minipage}
+
 
 \newpage
 % end of cover page
 
 \maketitle	
+%-------------------------------------------------------------------------------------------------
+% start writing from here ↓
+
 \section*{Introduction}
 
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a massa vel ipsum tempor lacinia et non lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque non massa dui. Sed malesuada, ex ac luctus maximus, nisl felis lobortis tortor, ac facilisis turpis sem nec nisi. Mauris vehicula efficitur nulla at facilisis. Phasellus velit odio, pharetra at nulla vel, laoreet venenatis urna. Praesent non luctus dolor. Morbi tristique placerat ipsum a lobortis. Proin dolor erat, viverra vel tortor at, egestas malesuada orci. Aliquam varius ut nulla eget accumsan. Integer eu enim quis diam dignissim vestibulum.
-\todo[noinlinepar]{test of todo \progressbar{0.1}}
-	
-	Praesent neque est, gravida nec eleifend ac, gravida id turpis. Nullam sollicitudin malesuada quam, quis commodo tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris imperdiet, risus at malesuada suscipit, sem lorem vehicula mauris, ac condimentum arcu est eget libero. Mauris ante turpis, varius a egestas id, egestas sed ligula. Etiam fermentum fringilla dictum. Vivamus porttitor, ex ac porttitor vehicula, risus lacus convallis risus, eget dictum diam diam in elit. Vestibulum imperdiet sed nulla at semper. Morbi egestas mauris at aliquam egestas. Cras sagittis, urna sed blandit eleifend, ligula est rutrum est, venenatis convallis libero dolor in turpis. Suspendisse a mattis felis, ut efficitur odio. Cras tempor porttitor vestibulum. Ut eleifend elit dolor, sed lacinia dui viverra vitae. Aenean vestibulum egestas velit, vitae pulvinar nisl aliquam nec. Aliquam porta leo sed blandit cursus. Aenean nisi nibh, blandit rhoncus tellus quis, pellentesque euismod lectus.
-	
-	Ut ullamcorper arcu ac felis tincidunt, ac elementum odio consectetur. Nunc ac commodo purus. Integer ipsum dolor, pulvinar ut dapibus ut, aliquet id nibh. Mauris tempus metus nibh, vel ornare diam convallis eget. Pellentesque ultricies mattis mi at vulputate. Vestibulum eu interdum augue. Nullam fringilla varius fringilla. Nulla aliquam, felis id malesuada volutpat, ex elit convallis urna, ac auctor mi enim sed ipsum. Morbi pellentesque aliquam est.
-	
-	Fusce quis orci a sem ultricies finibus. Nunc faucibus rhoncus pulvinar. Fusce non interdum lacus, eget tincidunt sem. Cras rhoncus vitae felis nec porttitor. Nunc laoreet turpis velit, non tristique justo lobortis nec. Phasellus ut velit fermentum, hendrerit elit ut, pulvinar elit. Phasellus sit amet volutpat mi. Sed a mattis risus. Curabitur tempus ligula ac fermentum consequat. Morbi fermentum euismod felis, vel venenatis nulla porttitor non. Pellentesque hendrerit risus a felis pharetra, nec ultricies velit aliquam. Mauris vulputate bibendum dapibus. Nulla lacinia, libero eget pellentesque varius, ante metus sodales mauris, vitae sagittis nulla turpis eu enim. Cras ac ligula non diam pellentesque consequat. Vivamus tincidunt hendrerit quam vitae cursus. Vivamus lorem arcu, suscipit at nisl vitae, congue tristique metus (section \ref{part:Fusce}). 
+Just put your introduction here.
+This is acting as a documentation.
+First section illustrates the inclusion of figures (Section~\ref{s:figure}).
+There is a section about bibliography (Section~\ref{s:biblio})
+ and subsections for backreferencing  (Section~\ref{ss:backref}) and doi integration (Section~\ref{ss:doi}).
+Another section is showing how to include programming code (Section~\ref{s:code}).
 
-\section{Fusce fermentum metus eu tempus}
-\label{part:Fusce}
+
+%sometimes you have to put your figures earlier to make sure they are at the right place
+%single column figure (without the *)
+\begin{figure}[!b]
+	\centering
+	\includegraphics[width=9cm]{fig_section} 
+	\caption{In sed rutrum felis. Cras convallis libero vel arcu euismod, ut ultricies dolor pellentesque. Nullam congue, mauris et volutpat imperdiet (modified from \citet{Laurent2023}).}
+	\label{fig:Figure_col}
+\end{figure}
+
+Here is some latin jibberjabber to add some text: 	
+	Maecenas volutpat nulla at tellus commodo fermentum. Vestibulum non lacus et lectus consectetur blandit ac eget diam. Sed cursus eros vel mauris consectetur rhoncus non non velit. Vestibulum porta convallis mauris quis varius. Suspendisse eu odio non lacus imperdiet sollicitudin et ut orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus volutpat feugiat congue. Sed scelerisque nulla quis risus gravida mollis. Pellentesque suscipit varius est vitae eleifend. Nam euismod nisi nec diam gravida tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean convallis imperdiet ligula, sit amet finibus lectus maximus eget. Quisque non euismod ex, interdum dignissim tortor. Morbi facilisis metus dolor, eget rhoncus justo hendrerit sed.
 	
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada vehicula ex, nec consectetur elit malesuada id. Suspendisse ut sagittis eros, ac suscipit velit. In hac habitasse platea dictumst. Curabitur ipsum enim, semper eget sem in, auctor mollis purus. Vivamus viverra aliquet elit, ac iaculis nisl imperdiet aliquet. Pellentesque id ullamcorper eros. Integer vitae enim et sapien fringilla eleifend eu venenatis mauris. Donec placerat euismod lorem, eget semper purus malesuada vitae. Integer fringilla maximus porttitor. Sed euismod ultricies odio in dapibus. Donec consectetur quam eget posuere auctor.
-	
-	\subsection{In rhoncus molestie commodo}
-	
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eros purus, consectetur nec elit nec, consectetur ullamcorper nibh. Aenean feugiat ultrices sollicitudin. Suspendisse convallis mattis diam sed egestas. Maecenas volutpat lectus ante. Donec suscipit tortor at est molestie sollicitudin. Pellentesque condimentum gravida erat, pellentesque molestie ipsum dapibus ut. Nunc lacinia lacinia dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse luctus risus eu ligula venenatis, id lacinia diam porta (figure \ref{fig:Figure_1}).
-\begin{figure}
+\section{Figures}
+\label{s:figure}
+
+This is to show how to include a figure.
+There are single column figures (Fig.~\ref{fig:Figure_col}) and full width figures (Fig.~\ref{fig:Figure_1}).
+
+%full width figure (figure*)
+\begin{figure*}[!tbp]
 	\centering
 	\includegraphics[width=\linewidth]{fig_section} 
 	\caption{In sed rutrum felis. Cras convallis libero vel arcu euismod, ut ultricies dolor pellentesque. Nullam congue, mauris et volutpat imperdiet (modified from \citet{Laurent2023}).}
 	\label{fig:Figure_1}
-\end{figure}
-	
-	Aenean hendrerit dui et arcu elementum, sed gravida leo dignissim. Fusce imperdiet turpis et felis iaculis porta. Fusce at sapien vitae ex consectetur iaculis. Duis hendrerit metus non blandit venenatis. Integer a vestibulum neque, quis congue erat. Donec eget mi rutrum, dignissim ipsum a, condimentum quam. Donec laoreet augue in iaculis mollis.
-	
-	Vivamus mattis dui eu dolor aliquam fermentum. Vestibulum eleifend augue quis risus lacinia consequat. Duis porttitor maximus blandit. Maecenas malesuada posuere venenatis. Donec pretium dictum ornare. Nam in eros vitae velit eleifend sodales. Donec erat lacus, bibendum non lorem eget, venenatis faucibus lectus. Quisque et suscipit est. Etiam venenatis nec nulla in varius. Sed ligula nulla, dictum id augue ac, bibendum cursus magna. Quisque velit magna, dignissim eu semper a, volutpat eget nibh. Interdum et malesuada fames ac ante ipsum primis in faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla in lectus eu ipsum dapibus efficitur nec sed massa. Vestibulum ipsum diam, posuere et gravida at, semper eget augue. Maecenas lobortis suscipit nunc venenatis suscipit.
-	
-	Sed arcu ligula, posuere a magna eget, laoreet aliquam enim. Morbi elit lacus, molestie non augue nec, iaculis efficitur leo. In lacinia enim sapien. Aenean in semper ligula, ac pellentesque lacus. Suspendisse elementum ante quis tellus sodales, ac pellentesque ligula vehicula. Donec suscipit blandit ipsum, nec consequat urna consectetur a. Maecenas at tellus iaculis, porttitor nibh tristique, venenatis ligula. Donec sollicitudin lacus id enim malesuada iaculis. Donec malesuada massa lacus, at egestas velit feugiat in. Donec sollicitudin dolor sed placerat feugiat (appendix \ref{app:Aenean}).
-	
+\end{figure*}
+
+\section{Bibliography}
+\label{s:biblio}
+
+\subsection{Special references backref}
+\label{ss:backref}
+A back reference is automatically added in the bibliography listing, but it requires an extra compilation to get the page right.
+
+\subsection{DOI and HAL integration}
+\label{ss:doi}
+
+There is a command in the template that automatically format the doi references in the bibliography.
+All it should take is to make sure the doi is listed in the bib file under the ``doi'' keyword.
+It will appear between chevron brackets as a link to doi.org.
+
+If you have listed papers that are in HAL archives you can add them as an extra keyword in the bib file
+\begin{lstlisting}
+hal = {insu-04182730}
+\end{lstlisting}
+
+
+\section{Code}
+\label{s:code}
+
+You can include code inline like this \lstinline!Myclass!. 
+For this, the words need to be added to the lstlisting settings at the start.
+They can be coloured differently depending on there natures: class, method, attribute or variables.
+Comments also have a special colour and strings too, which generally require to have " characters around like in
+\lstinline!"A string"!.
+
+Off course, you can also make code listings with the ``lstlisting'' environment:
+\begin{lstlisting}[language=Python]
+from package import MyClass
+a = MyClass()
+a.my_var = a.my_method()
+print("Example done !")
+\end{lstlisting}
+
+
+%------------------------------------------------------
 \begin{appendices}
 
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
 
-\section{Aenean vel maximus ex}
-\label{app:Aenean}
-	
-	Nulla scelerisque, mauris nec fermentum placerat, tortor nunc tristique ipsum, sagittis imperdiet lacus sapien eu libero. Vivamus vel purus metus. Duis scelerisque aliquet risus a pretium. Nam sed semper elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec congue velit est, a blandit quam dictum vitae. Morbi erat metus, ultricies ac erat sit amet, luctus dictum ex. Nullam quis egestas eros. Duis at erat tellus. Etiam pharetra tempus erat, vitae tempor neque lobortis eget. Sed sed fermentum risus, ac auctor turpis. Fusce euismod rhoncus nibh non dictum. Vestibulum at laoreet risus. Vestibulum sit amet dictum sapien, a pellentesque tellus (figure \ref{fig:Figure_2}).
+\section{Appendices}
+\label{app:appendices}
+	This is to show how to handle appendices and figures in it (figure \ref{fig:Figure_app}).
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{fig_section} 
-	\caption{Phasellus eleifend gravida tempus. Etiam suscipit odio a nisl lacinia, sed ultrices ligula posuere. Pellentesque congue erat quis sagittis dictum.}
-	\label{fig:Figure_2}
+	\caption{This is to show appendix figures are numbered differently.}
+	\label{fig:Figure_app}
 \end{figure}
 	
 	Maecenas volutpat nulla at tellus commodo fermentum. Vestibulum non lacus et lectus consectetur blandit ac eget diam. Sed cursus eros vel mauris consectetur rhoncus non non velit. Vestibulum porta convallis mauris quis varius. Suspendisse eu odio non lacus imperdiet sollicitudin et ut orci. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus volutpat feugiat congue. Sed scelerisque nulla quis risus gravida mollis. Pellentesque suscipit varius est vitae eleifend. Nam euismod nisi nec diam gravida tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean convallis imperdiet ligula, sit amet finibus lectus maximus eget. Quisque non euismod ex, interdum dignissim tortor. Morbi facilisis metus dolor, eget rhoncus justo hendrerit sed.
 	
-	Vivamus ac rhoncus sapien, non rhoncus tellus. Ut ut urna quis tellus scelerisque rhoncus eu vel enim. Aliquam varius non enim vehicula tincidunt. Curabitur orci turpis, malesuada in erat quis, tempus ultricies nisl. Pellentesque viverra suscipit ipsum vel cursus. Aenean in tellus condimentum, ullamcorper turpis pulvinar, fermentum leo. Suspendisse fringilla rhoncus sapien nec efficitur. Vivamus vulputate ipsum lorem, at fermentum magna convallis at. Pellentesque scelerisque pretium felis non luctus. Sed imperdiet ante eget diam scelerisque, eu fermentum mauris sollicitudin. Cras erat leo, tincidunt vitae nibh quis, ultrices porttitor erat. 
 	
 \end{appendices}
 

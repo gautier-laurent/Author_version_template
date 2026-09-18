@@ -122,10 +122,6 @@
 % To have nice paragraph and compact item list
 \usepackage{paralist}
 
-% Todo list
-\usepackage{todonotes}
-\usepackage{progressbar}
-
 % To add and highlight links in the text (load at the end).
 % With natbib.
 %\hypersetup{
@@ -630,8 +626,6 @@
 \newcommand{\doi}[1]{\textlangle{}doi:\href{https://dx.doi.org/#1}{#1}\textrangle}
 \newcommand{\hal}[1]{\textlangle\href{https://hal.science/#1}{#1}\textrangle}
 
-%\bibliographystyle{unsrtnat}
-
 % Need the hyperref package.
 \definecolor{colorlink}{RGB}{4,90,141}
 \hypersetup{
@@ -646,3 +640,67 @@
 \pdfobjcompresslevel 0
 
 \date{}
+
+% multicolumns settings
+\usepackage{multicol}
+\setdefaultleftmargin{1em}{}{}{}{.5em}{.5em}
+
+% two settings to avoid widows and clubs (part of paragraph alone on a page)
+\widowpenalty10000
+\clubpenalty10000
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for including lines of codes and keywords
+
+\usepackage{listings}
+
+%defining colors
+\definecolor{string}{RGB}{121, 56, 25}
+\definecolor{comment}{RGB}{68, 107, 61}
+\definecolor{number}{rgb}{0.6,0.60,0.6}
+\definecolor{keyword}{RGB}{4,90,141}
+\definecolor{class}{RGB}{4, 123, 93}
+\definecolor{method}{RGB}{80, 80, 80}
+\definecolor{param}{RGB}{4,90,141}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{comment},
+    keywordstyle=\color{keyword},
+    numberstyle=\tiny\color{number},
+    stringstyle=\color{string},
+    basicstyle=\rmfamily\selectfont\normalsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,%,tab=\rightarrowfill                  
+    tabsize=2,
+    emph= {pyvista, pv, pypho, py, camera, target, graphics,
+    CameraRegistry, Camera, CameraShot, TargetObject, Sphere, CubeSample, DrillCore,
+    Pebble, Outcrop, Ground, Room, Well, BlurSpotDiameterColormap, Viewer3D},
+    emphstyle= \color{class},
+    emph= {[2]get_camera, kind, target_kinds, attach_target, translate, rotate, orbit, focus_on, update_aperture, register_camera, register_lens,
+    init_location, update_focus, move_to, optimize_sharpness, compute_optimal_aperture, update_view, move,
+    turn, trigger, plot_overlap_graph, get_overlap_matrix,
+    read, read_texture, get_default_camera, set_active_scalars, show, plot_flight_path, _compute_visible_occlusion},
+    emphstyle={[2]\color{method}},
+    emph= {[3]cam_id, lens_id, camera_base, lens_base, aim, focus, True, False, Z, mode, yaw, pitch, roll,
+    shots, target_points, optimize_N, use_diffraction, cam, obj, vmax, field, vertical, cameras, objects, target_object_texture, outside_weight, cmap, confusion_circle_diameter, views, sharp_views, default_baseline,
+    plot_sharpness_object, plot_sharpness_object_edges, plot_diffraction_object, plot_diffraction_object_edges,
+    plot_camera_location, plot_shot_location, camera_location_point_size_factor, shot_location_point_size_factor,
+    camera_location_color, shot_location_color, focus_plan_object_color, plotter, position, focal_point,
+    add_to_viewer, update_viewer, point_data, nsub, plot_focus_plan_object, plot_view_frame_object, plot_shot_orientation,
+    optimize_location, location, center, around, radius, color, opacity},
+    emphstyle={[3]\color{param}}
+}
+
+\lstset{language=Python, style=mystyle}
+
+\newcommand{\pypho}{\textbf{PyPho}\xspace}
+
